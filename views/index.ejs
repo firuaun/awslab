@@ -9,7 +9,12 @@
 		</nav>
 		<div class="container">
 		<section id="section1" class="panel panel-default">
-
+			<%if(typeof(success)!=="undefined"){%>
+			<div class="alert alert-success">
+				<strong>Well done, my friend!</strong> You successfully uploaded file! Here it is:<br/>
+				<img src="<%=success.url%>"/>
+			</div>
+			<%}%>
 			<div class="panel-heading">
 			<div class="container">
 	    		<h3 class="panel-title">POSTing a file to Amazon S3</h3>
