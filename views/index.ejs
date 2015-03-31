@@ -8,13 +8,13 @@
 			
 		</nav>
 		<div class="container">
+		<%if(typeof(success)!=="undefined"){%>
+		<div class="alert alert-success">
+			<strong>Well done, my friend!</strong> You successfully uploaded your file on S3! Here is a link, which expires for 60 seconds:<br/>
+			<a class="btn btn-success" href="<%=success.url%>">Download it! C'mon don't be shy</a>
+		</div>
+		<%}%>
 		<section id="section1" class="panel panel-default">
-			<%if(typeof(success)!=="undefined"){%>
-			<div class="alert alert-success">
-				<strong>Well done, my friend!</strong> You successfully uploaded file! Here it is:<br/>
-				<img src="<%=success.url%>"/>
-			</div>
-			<%}%>
 			<div class="panel-heading">
 			<div class="container">
 	    		<h3 class="panel-title">POSTing a file to Amazon S3</h3>

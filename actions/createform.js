@@ -31,9 +31,8 @@ var task = function(request, callback){
 	var s3Form = new S3Form(policy);
 	//4. get bucket name
 	var bucket = policy.getConditionValueByKey("bucket");
-	//5. get hidden fields
-	var fields = s3Form.generateS3FormFields();
-	fields = s3Form.addS3CredientalsFields(fields,awsConfig);
+	//5. get hidden fields and credentials
+	var fields = s3Form.addS3CredientalsFields(s3Form.generateS3FormFields(),awsConfig);
 	
 	callback(null, {template: INDEX_TEMPLATE, params:{fields:fields, bucket:bucket, success: success}});
 }
