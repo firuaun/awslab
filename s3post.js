@@ -5,6 +5,7 @@ var helpers = require("./helpers");
 var ACCESS_KEY_FIELD_NAME = "AWSAccessKeyId";
 var POLICY_FIELD_NAME = "policy";
 var SIGNATURE_FIELD_NAME = "signature";
+var METADATA_FIELD_PREFIX = "x-amz-meta-";
 
 var Policy = function(policyData){
 	this.policy = policyData;	
@@ -43,9 +44,15 @@ var S3Form = function(policy){
 	
 }
 
-S3Form.prototype.generateS3FormFields = function() {
+S3Form.prototype.generateS3FormFields = function(metadata) {
 	var conditions =this.policy.getConditions();
 	
+        metadata ? Object.keys(metadata).forEach(function(key){
+            var obj = {};
+            obj[METADATA_FIELD_PREFIX+key]=metadata[key];
+            conditions.push(obj);
+        }) : null;
+        
 	var formFields = [];
 
 	conditions.forEach(function(elem){
@@ -60,7 +67,7 @@ S3Form.prototype.generateS3FormFields = function() {
 			 	formFields.push(hiddenField(key, value));
 		}	
 	});
-	
+	    
 	return formFields;	
 }
 

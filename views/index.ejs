@@ -10,8 +10,25 @@
 		<div class="container">
 		<%if(typeof(success)!=="undefined"){%>
 		<div class="alert alert-success">
-			<strong>Well done, my friend!</strong> You successfully uploaded your file on S3! Here is a link, which expires for 60 seconds:<br/>
+			<strong>Well done, my friend!</strong> You successfully uploaded your file on S3! Here is a link:<br/>
 			<a class="btn btn-success" href="<%=success.url%>">Download it! C'mon don't be shy</a>
+                        <br/>
+                        <br/>
+                        <h4>Additional info:</h4>
+                        <dl class="dl-horizontal">
+                            <dt>Hash(md5)</dt>
+                            <dd><%=success.hash%></dd>
+                            <dt>Filename</dt>
+                            <dd><%=success.filename%></dd>
+                            <dt>Bucket</dt>
+                            <dd><%=success.bucket%></dd>
+                            <dt>Etag</dt>
+                            <dd><%=success.etag%></dd>
+                            <%for(var key in success.metadata){%>
+                               <dt><%=key%></dt>
+                               <dd><%=success.metadata[key]%></dd> 
+                            <%}%>
+                        </dl>
 		</div>
 		<%}%>
 		<section id="section1" class="panel panel-default">
