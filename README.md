@@ -1,5 +1,8 @@
 Laboratorium Amazon Web Services
 ==============================
 
-Laboratorium 4 - Simple Storage System S3
---------------
+Introduced a new repository to gather whole progress that has been made and keep it up to date. 
+
+## Progress:
+* Simple Storage System (S3)
+* SimpleDB (noSQL)
