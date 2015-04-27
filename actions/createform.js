@@ -4,6 +4,7 @@ var Policy = require("../s3post").Policy;
 var S3Form = require("../s3post").S3Form;
 var waterfall = require('async-waterfall');
 var AWS_CONFIG_FILE = "config.json";
+var SQS_CONFIG_FILE = "sqsconfig.json";
 var POLICY_FILE = "policy.json";
 var INDEX_TEMPLATE = "index.ejs";
 var AWS = require("aws-sdk");
@@ -40,7 +41,13 @@ var task = function(request, callback){
             var sDB = new AWS.SimpleDB();
             // load S3 service
             var s3 = new AWS.S3();
-        
+            // load SQS service
+            var sqs = new AWS.SQS();
+            // load sqs config url
+            var sqsURL = helpers.readJSONFile(SQS_CONFIG_FILE).QueueURL;
+            //load sqs interface
+            var sqsCmd = require('../sqscommand');
+            
                 waterfall([
                     function(call){
                         // Bucket config
@@ -55,6 +62,12 @@ var task = function(request, callback){
                                     hash: helpers.calculateDigest("md5",data.Body,'hex'),
                                     metadata: data.Metadata
                                 });
+                        });
+                    },
+                    function(success,call){
+                        sqsCmd.send(sqs,sqsURL,"we no to policz",function(err,data){
+                            console.log(err,data);
+                            call(null,success); 
                         });
                     },
                     function(success,call){
