@@ -59,15 +59,23 @@ var task = function(request, callback){
                                     etag: request.query.etag,
                                     bucket: request.query.bucket,
                                     url: s3.getSignedUrl('getObject', objParams),
-                                    hash: helpers.calculateDigest("md5",data.Body,'hex'),
                                     metadata: data.Metadata
                                 });
                         });
                     },
                     function(success,call){
-                        sqsCmd.send(sqs,sqsURL,"we no to policz",function(err,data){
+                        sqsCmd.send(sqs,sqsURL,success.filename,function(err,data){
                             console.log(err,data);
                             call(null,success); 
+                        },{
+                            Bucket: {
+                                DataType: 'String',
+                                StringValue: success.bucket
+                            },
+                            Key: {
+                                DataType: 'String',
+                                StringValue: success.filename
+                            }
                         });
                     },
                     function(success,call){
@@ -92,8 +100,8 @@ var task = function(request, callback){
                             DomainName: DOMAIN_NAME,
                             ItemName: success.filename,
                             Attributes:[{
-                                    Name: 'Hash',
-                                    Value: success.hash,
+                                    Name: 'Filename',
+                                    Value: success.filename,
                                     Replace: true
                             },{
                                 Name: 'Bucket',
