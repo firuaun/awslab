@@ -1,12 +1,12 @@
 {
-  "name": "awslab4",
+  "name": "awslab",
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Radek Adamus <adamusr@gmail.com> (https://github.com/radamus/)",
+  "author": "Rafał Grzyb <firuaun@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "async": "^0.2.10",

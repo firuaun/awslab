@@ -1,14 +1,26 @@
 <html>
 	<head>
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">	
+		<link href="/assets/styles/bootstrap.min.css" rel="stylesheet">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
                 <title>Say friend and upload a file</title>
 	</head>
 	<body>
-		<nav class="navbar">
-			
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="/" class="navbar-brand">AWS PROJECT</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right navbar-form">
+						<li><button type="submit" class="btn btn-default" data-toggle="modal" data-target="#uploadModal">Upload a file</button></li>
+					</ul>
+				</div>
+			</div>
 		</nav>
 		<div class="container">
+
+
+		<% include partials/uploadForm.ejs %>
 		<%if(typeof(success)!=="undefined"){%>
 		<div class="alert alert-success">
 			<strong>Well done, my friend!</strong> You successfully uploaded your file on S3! Here is a link:<br/>
@@ -32,42 +44,9 @@
                         </dl>
 		</div>
 		<%}%>
-		<section id="section1" class="panel panel-default">
-			<div class="panel-heading">
-			<div class="container">
-	    		<h3 class="panel-title">POSTing a file to Amazon S3</h3>
-	    		</div>
-		  	</div>
-	  		<div class="panel-body">
-	  <form action="https://<%=bucket%>.s3.amazonaws.com/" method="POST" id="sign-up-form" class="form-horizontal" enctype="multipart/form-data">	
-	
-	<div class="container">
-	<% fields.forEach(function(elem){ %>
-	  <input type="hidden" name="<%= elem.name  %>" value="<%=elem.value %>"/>
-		<%}); %> 
-	   
-	<div class="col-xs-5">
-	<div class="form-group">
-    	<label for="exampleInputFile">File input</label>
-    	<input type="file" name="file">
-    	<p class="help-block">File will be send to the bucket <%=bucket%> </p>
-  </div>
-	
-  	
+		
 	</div>
-	</div>
-	
-	<div class="container">
-	<div class="col-xs-3">
-	<input type="submit" class="btn  btn-primary btn-block" value="Confirm"/>
-	</div>
-	</div>
-</form>
-	  		</div>
-			<footer class="panel-footer">
-				
-			</footer>
-		</section>
-	</div>		
+		<script type="text/javascript" src="/assets/js/jquery-2.1.1.min.js"></script>		
+		<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>		
 	</body>
 </html>

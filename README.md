@@ -6,3 +6,4 @@ Introduced a new repository to gather whole progress that has been made and keep
 ## Progress:
 * Simple Storage System (S3)
 * SimpleDB (noSQL)
+* SQS (queue)
