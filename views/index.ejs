@@ -1,6 +1,8 @@
 <html>
 	<head>
 		<link href="/assets/styles/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/styles/home.css" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
                 <title>Say friend and upload a file</title>
 	</head>
@@ -18,9 +20,53 @@
 			</div>
 		</nav>
 		<div class="container">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <div class="panel panel-default pull-left" id="bucket-objects-wrapper">
+				  <div class="panel-heading">
+				    <ol class="panel-title breadcrumb">
+				    <li><a href="#"><%=bucket%></a></li>
+				    <li><%=prefix%></li>
+				    </ol>
+				  </div>
+				  <div class="panel-body">
+				  	<div class="list-group">
+					    <%for(var i=0, l= objects.length; i < l; i++) {%>
+					    <a href="#" class="list-group-item"><%=objects[i].Key%></a>
+					    <%}%>
+				    </div>
+				  </div>
+				</div>
+				<div class="panel panel-default pull-right" id="object-preview-wrapper">
+				  <div class="panel-body">
+				    
+				  	<div>
+
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs" role="tablist">
+					    <li role="presentation" class="active"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
+					    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Informations</a></li>
+					    <li role="presentation"><a href="#operations" aria-controls="operations" role="tab" data-toggle="tab">Operations</a></li>
+					  </ul>
+
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane fade in active" id="preview">1</div>
+					    <div role="tabpanel" class="tab-pane fade" id="info">2</div>
+					    <div role="tabpanel" class="tab-pane fade" id="operations">3</div>
+					  </div>
+
+					</div>
+
+
+				  </div>
+				</div>
+			  </div>
+			</div>
 
 
 		<% include partials/uploadForm.ejs %>
+		<!--
 		<%if(typeof(success)!=="undefined"){%>
 		<div class="alert alert-success">
 			<strong>Well done, my friend!</strong> You successfully uploaded your file on S3! Here is a link:<br/>
@@ -44,7 +90,7 @@
                         </dl>
 		</div>
 		<%}%>
-		
+		-->
 	</div>
 		<script type="text/javascript" src="/assets/js/jquery-2.1.1.min.js"></script>		
 		<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>		

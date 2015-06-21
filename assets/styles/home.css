@@ -1,0 +1,11 @@
+body {
+	overflow-y: scroll;
+}
+
+#bucket-objects-wrapper {
+	width: 25%;
+}
+
+#object-preview-wrapper {
+	width: 73%;
+}
