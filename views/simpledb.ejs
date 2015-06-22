@@ -1,8 +1,8 @@
 <html>
 	<head>
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<link href="/assets/styles/bootstrap.min.css" rel="stylesheet">
+        <script type="text/javascript" src="/assets/js/jquery-2.1.1.min.js"></script>       
+        <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>  
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <style>
                     .domain-name{
@@ -50,16 +50,24 @@
                             alert("No items in "+params.domainKey);
                             return;
                         }
-                        var dl = $('<dl>',{class:'dl-horizontal'}).appendTo(parent);
-                        items.forEach(function(item){
-                            $('<dt>',{text:"ItemName"}).appendTo(dl);
-                            var dd = $('<dd>',{text:item.Name}).appendTo(dl);
-                            var dlNested = $('<dl>',{class:'dl-horizontal'}).appendTo(dd);
-                            item.Attributes.forEach(function(attr){
-                                $('<dt>',{text:attr.Name}).appendTo(dlNested);
-                                $('<dd>',{text:attr.Value}).appendTo(dlNested);
+                        var old_dl = parent.children('dl');
+                        if(old_dl.length !== 0)
+                            old_dl.fadeOut(400,function(){
+                                $(this).remove();
                             });
-                        });
+                        else {
+                            var dl = $('<dl>',{class:'dl-horizontal'});
+                            items.forEach(function(item){
+                                $('<dt>',{text:"ItemName"}).appendTo(dl);
+                                var dd = $('<dd>',{text:item.Name}).appendTo(dl);
+                                var dlNested = $('<dl>',{class:'dl-horizontal'}).appendTo(dd);
+                                item.Attributes.forEach(function(attr){
+                                    $('<dt>',{text:attr.Name}).appendTo(dlNested);
+                                    $('<dd>',{text:attr.Value}).appendTo(dlNested);
+                                });
+                            });
+                            dl.hide().appendTo(parent).fadeIn();
+                        }
                     });
                 });
             </script>

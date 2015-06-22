@@ -37,7 +37,7 @@ var task = function(request,response){
 		var objects = bucketObjects.Contents.filter(function(item){
 			return item.Key.match(/(png|gif|jpeg|jpg|bmp)/);
 		}).map(function(item){
-			item.Key = item.Key.replace(prefix,'');
+			item.Name = item.Key.replace(prefix,'');
 			return item;
 		});
 		response(null, {template: INDEX_TEMPLATE, params:{fields:fields, bucket:bucket, prefix: prefix, objects: objects}});

@@ -9,3 +9,11 @@ body {
 #object-preview-wrapper {
 	width: 73%;
 }
+
+.tab-pane {
+	text-align: center;
+	padding-top: 2em;
+}
+#preview img {
+	width: 80%;
+}

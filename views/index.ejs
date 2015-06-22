@@ -12,6 +12,9 @@
 				<div class="navbar-header">
 					<a href="/" class="navbar-brand">AWS PROJECT</a>
 				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/simpledb">SimpleDB</a></li>
+				</ul>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right navbar-form">
 						<li><button type="submit" class="btn btn-default" data-toggle="modal" data-target="#uploadModal">Upload a file</button></li>
@@ -25,14 +28,14 @@
 			    <div class="panel panel-default pull-left" id="bucket-objects-wrapper">
 				  <div class="panel-heading">
 				    <ol class="panel-title breadcrumb">
-				    <li><a href="#"><%=bucket%></a></li>
-				    <li><%=prefix%></li>
+				    <li><a href="#" id="bucket-name"><%=bucket%></a></li>
+				    <li id="prefix-name"><%=prefix%></li>
 				    </ol>
 				  </div>
 				  <div class="panel-body">
-				  	<div class="list-group">
+				  	<div class="list-group" id="bucket-objects">
 					    <%for(var i=0, l= objects.length; i < l; i++) {%>
-					    <a href="#" class="list-group-item"><%=objects[i].Key%></a>
+					    <a href="#" data-bucket="<%=bucket%>" data-key="<%=objects[i].Key%>" class="list-group-item"><%=objects[i].Name%></a>
 					    <%}%>
 				    </div>
 				  </div>
@@ -51,13 +54,19 @@
 
 					  <!-- Tab panes -->
 					  <div class="tab-content">
-					    <div role="tabpanel" class="tab-pane fade in active" id="preview">1</div>
+					    <div role="tabpanel" class="tab-pane fade in active" id="preview">
+					    	1
+					    </div>
 					    <div role="tabpanel" class="tab-pane fade" id="info">2</div>
 					    <div role="tabpanel" class="tab-pane fade" id="operations">3</div>
 					  </div>
 
 					</div>
-
+					<div class="progress" hidden="hidden">
+					  <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+					    <span class="sr-only">Loading...</span>
+					  </div>
+					</div>
 
 				  </div>
 				</div>
@@ -94,5 +103,6 @@
 	</div>
 		<script type="text/javascript" src="/assets/js/jquery-2.1.1.min.js"></script>		
 		<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>		
+		<script type="text/javascript" src="/assets/js/script.js"></script>		
 	</body>
 </html>
