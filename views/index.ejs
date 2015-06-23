@@ -55,10 +55,35 @@
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 					    <div role="tabpanel" class="tab-pane fade in active" id="preview">
-					    	1
+					    	<div></div>
 					    </div>
-					    <div role="tabpanel" class="tab-pane fade" id="info">2</div>
-					    <div role="tabpanel" class="tab-pane fade" id="operations">3</div>
+					    <div role="tabpanel" class="tab-pane fade" id="info"><div></div></div>
+					    <div role="tabpanel" class="tab-pane fade" id="operations">
+					    	<div>
+					    		<form class="form-horizontal" action="/do" id="do-form" method="POST">
+								  <div class="form-group">
+								    <label for="brightness" class="col-sm-2 control-label">Brightness</label>
+								    <div class="col-sm-10">
+								      <input id="brightness" class="form-control" type="range" name="brightness" min="0" step="1" max="100" value="100"  />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								      <div class="checkbox">
+								        <label>
+								          <input  name="negative" id="negative" type="checkbox"> Negative
+								        </label>
+								      </div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								      <button type="submit" class="btn btn-default">Do</button>
+								    </div>
+								  </div>
+								</form>
+					    	</div>
+					    </div>
 					  </div>
 
 					</div>
