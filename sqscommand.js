@@ -38,5 +38,31 @@ var SqsCommand = {
     }
 };
 
-module.exports = SqsCommand;
+function values(obj) {
+  var arr = [];
+  Object.keys(obj).forEach(function(e){
+    arr.push(obj[e]);
+  });
+  return arr;
+}
+
+var SQSQueue = function(){
+    (function(sqs,url){
+        this.sqs = sqs;
+        this.url = url;
+    }).apply(this,arguments);
+};
+
+Object.keys(SqsCommand).forEach(function(method){
+    SQSQueue.prototype[method] = function(){
+        var args = values(arguments);
+        args.unshift(this.url);
+        args.unshift(this.sqs);
+        SqsCommand[method].apply(this, args);
+    };
+});
+
+exports.SqsCommand = SqsCommand;
+exports.SQSQueue = SQSQueue;
+
 
