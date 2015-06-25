@@ -1,5 +1,6 @@
 (function(){
 	var elem = null;
+
 	function progressbarLoading(progress){
 		progress.parent().show();
 		var load = 0;
@@ -27,7 +28,10 @@
 		var key = elem.data('key');
 		$.post('/s3get',{bucket:bucket,key:key},function(data){
 			interval.stop();
-			$('<img>',{src:data.url}).appendTo($('#preview div').empty());
+			window.debug_data = data.data;
+			FileReader.readFromArrayToDataUrl(data.data.Body.data,"image/jpeg",function(result){
+				$('<img>',{src:result}).appendTo($('#preview div').empty());
+			});
 			var metadataElem = null;
 			data = data.data;
 			var info = $('<dl>',{class:'dl-horizontal'}).appendTo($('#info  div').empty());
@@ -50,7 +54,11 @@
 		var obj = {};
 		for(var i=0, l= formElem.length; i < l; i++){
 			if(formElem[i].type !== "submit") {
-				obj[formElem[i].name] = formElem[i].value;
+				console.log(formElem[i].type);
+				if(formElem[i].type === "checkbox") 
+					obj[formElem[i].name] = formElem[i].checked;
+				else
+					obj[formElem[i].name] = formElem[i].value;
 			}
 		}
 		return obj;
@@ -67,4 +75,41 @@
 			console.log(result);
 		});
 	});
+	$('#brightness').on('mousemove',function(){
+		$('#brightness-count').text(this.value);
+	});
 })();
+
+Element.prototype.load = function(callback){
+	this.addEventListener("load",function(e){
+		return callback(e.target,e);
+	});
+	return this;
+};
+
+FileReader.prototype.load = Element.prototype.load;
+
+FileReader.readToDataUrl = function(f, callback){
+	var reader = new FileReader();
+	reader.load(function(target,e){
+		return callback(target.result,target,e,f);
+	});
+	reader.readAsDataURL(f);
+	return reader;
+};
+
+FileReader.read = function(f, callback){
+	var reader = new FileReader();
+	reader.load(function(target,e){
+		return callback(target.result,target,e,f);
+	});
+	reader.readAsBinaryString(f);
+	return reader;
+};
+
+FileReader.readFromArrayToDataUrl = function(buffer,type,callback) {
+	var blob = new Blob([new Uint8Array(buffer)],{type: type});
+	FileReader.readToDataUrl(blob,function(result){
+		callback(result);
+	});
+};

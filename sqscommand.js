@@ -27,10 +27,15 @@ var SqsCommand = {
     },
     pop: function(queue,url,callback,attrNames){
         SqsCommand.receive(queue,url,function(err,messageData){
-            if(err) console.log(err);
+            if(err) console.log("POP(RECIEVE) ERROR:",err);
             else {
-                SqsCommand.delete(queue,url,messageData.MessageId,function(err,data){
-                    if(err) console.log(err);
+                if(!messageData.Messages) {
+                    console.info("brak wiadomosci");
+                    return callback(null,false);
+                }
+                messageData = messageData.Messages[0];
+                SqsCommand.delete(queue,url,messageData.ReceiptHandle,function(err,data){
+                    if(err) console.log("POP(DELETE) ERROR:",err);
                     callback(err,messageData,data);
                 });
             }
