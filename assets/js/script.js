@@ -29,7 +29,7 @@
 		$.post('/s3get',{bucket:bucket,key:key},function(data){
 			interval.stop();
 			var sdb = data.sdb;
-			FileReader.readFromArrayToDataUrl(data.data.Body.data,"image/jpeg",function(result){
+			FileReader.readFromArrayToDataUrl(data.data.Body.data || data.data.Body,"image/jpeg",function(result){
 				$('<img>',{src:result}).appendTo($('#preview div').empty());
 			});
 			var metadataElem = null;
