@@ -28,11 +28,12 @@
 		var key = elem.data('key');
 		$.post('/s3get',{bucket:bucket,key:key},function(data){
 			interval.stop();
-			window.debug_data = data.data;
+			var sdb = data.sdb;
 			FileReader.readFromArrayToDataUrl(data.data.Body.data,"image/jpeg",function(result){
 				$('<img>',{src:result}).appendTo($('#preview div').empty());
 			});
 			var metadataElem = null;
+			var nosqlElem = null;
 			data = data.data;
 			var info = $('<dl>',{class:'dl-horizontal'}).appendTo($('#info  div').empty());
 			info.append($('<dt>',{text:'Last modified:'}))
@@ -42,12 +43,19 @@
 			.append($('<dt>',{text:'Size:'}))
 			.append($('<dd>',{text:data.ContentLength+' '+data.AcceptRanges}))
 			.append($('<dt>',{text:'Metadata:'}))
-			.append((metadataElem = $('<dd>',{html:'&nbsp;'})));
+			.append((metadataElem = $('<dd>',{html:'&nbsp;'})))
+			.append($('<dt>',{text:'NoSQL:'}))
+			.append((nosqlElem = $('<dd>',{html:'&nbsp;'})));
 			var list = $('<dl>',{class:'dl-horizontal'});
+			var list2 = $('<dl>',{class:'dl-horizontal'});
 			data.Metadata ? Object.keys(data.Metadata).forEach(function(key){
 				list.append($('<dt>',{text:key})).append($('<dd>',{text:data.Metadata[key]}));
 			}) : null;
+			sdb ? Object.keys(sdb).forEach(function(key){
+				list2.append($('<dt>',{text:sdb[key].Name})).append($('<dd>',{text:sdb[key].Value}));
+			}) : null;
 			list.appendTo(metadataElem);
+			list2.appendTo(nosqlElem);
 		})
 	});
 	function serializeForm(formElem){
@@ -73,10 +81,31 @@
 		console.log(formData);
 		$.post(this.action, formData ,function(result){
 			console.log(result);
+			$('#komunikat').html('<strong>'+formData['key']+'</strong> was sent to be processed. You need to be patient, so sit tight.').parent().fadeIn();
 		});
+	});
+	$('#del-form').on('submit',function(e){
+		e.preventDefault();
+		if(!elem)
+			return;
+		if(confirm('Do you want to snu that shit outta space?')) {
+			var formData = serializeForm(this);
+			formData['bucket'] = elem.data('bucket');
+			formData['key'] = elem.data('key');
+			console.log(formData);
+			$.post(this.action, formData ,function(result){
+				console.log(result);
+				location.reload();
+			});
+		}
+		
 	});
 	$('#brightness').on('mousemove',function(){
 		$('#brightness-count').text(this.value);
+	});
+	$('.dissmiss').click(function(e){
+		e.preventDefault();
+		$(this).parent().fadeOut();
 	});
 })();
 

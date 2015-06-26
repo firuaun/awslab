@@ -6,5 +6,6 @@
 	{"path":"/simpledbinfo","action":"simpledbinfo"},
 	{"path":"/assets/*","action":"assets"},
 	{"path":"/s3get","action":"s3get"},
+	{"path":"/s3del","action":"s3del"},
 	{"path":"/do","action":"order"}
 ]

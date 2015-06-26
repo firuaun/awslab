@@ -21,9 +21,20 @@ var task = function(request, response) {
 			queue.send(JSON.stringify(params),function(err,queueResult){
 				call(null, nosql, queueResult);
 			});
+		},
+		function(nosql,queueResult,call){
+			var attr = [
+				{Name:'LastOrder',
+				Value: JSON.stringify([Date.now(),params.brightness,params.negative]),
+				Replace:true}
+			];
+			nosql.put(params.key,attr,function(err,data){
+				call(err,data);
+			});
 		}
-	],function _result(err,nosql,queueData){
-		response(null,{"msg":"soon"});	
+	],function _result(err,data){
+		if(err) console.log("ERR:",err,data);
+		response(err,{"msg":"OK"});	
 	});
 	
 };
