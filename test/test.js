@@ -1,5 +1,4 @@
 var assert = require('assert');
-var order = require('../actions/order')
 
 describe("awslab project test",function(){
     it("should just pass",function(){
