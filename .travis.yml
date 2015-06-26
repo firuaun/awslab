@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- '0.11'
+- '0.10'
+deploy:
+  provider: s3
+  access_key_id: AKIAIAEWDAFS4X6S52OQ
+  secret_access_key:
+    secure: pqlfBzmfw0pMLIGgHaJlrLI69mbJ0i09l8eoksXYLQ9dJju5Rtf8VweU/mfwDhHrGvEMskoFntASlI76mnrgpOs6f//ESn0VyD741xivN8eVrht090jnHKfxofmN8vhkn4QzhSsTw7k+o3xm/Oz8PA8U3q40VBDAvuGYfh0EFDMKBlNnamtum09q9TRSnAngxvjLTMqHgS0Jqthm7o8nK2llIacNgjjtpqvkmxT6+xy0ZjDek0SDNloSleXkA4wWFEvYqkrs0+ZJU9PxzRWptoiCsG88jBJcc2iE9bX+E8rwiakP54AdUuPf0feUaTyK9JAJgOJnhmuuyJ9L0EFqbEC70Wz6kXJ17btwobVLUrt05iyyBXSaGwxhnL0tbWucSz27KN4M13JMX2S/tVhjCSOzIZoobCLm7dCcgigtfPPlII5mmwG2mXQurn9DaD9dXkRIm8IOQt30e0fFG9EZrE7mbqGg+sXVzH0KEQKAqIH4aRwM+C0L++aaCKg85Ews4+vboY0JzgAnCn6/f84XKtmEruLN6DV1BfNAi8daeDHUdvA6Upy2YTXwtE0z84y+SGLulQXgvIjuXaw+qXH9S2h2XjPdQL2qSc53SGIrqqJ02BFrSc3p71EiyXhNKkReDWJ60pqJ9zNwpJihLX1ca3C7oqr41s0TzBaXQbK3Q54=
+  bucket: deploy-weeia
+  upload-dir: grzyb_web
+  acl: public_read
+  on:
+    repo: firuaun/awslab
