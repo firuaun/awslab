@@ -21,6 +21,15 @@ Policy.prototype.getConditions = function(){
 	return this.policy.conditions;
 }
 
+Policy.prototype.setConditionByKey = function(key,value){
+	for(var i=0,l=this.policy.conditions.length; i < l; i++){
+		if(Object.keys(this.policy.conditions[i])[0] === key) {
+			this.policy.conditions[i][key] = value;
+		}
+	}
+	return this;
+};
+
 Policy.prototype.generateSignature = function(secretAccessKey){
 	return helpers.hmac("sha1", secretAccessKey, this.generateEncodedPolicyDocument(), 'base64');	
 }

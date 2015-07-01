@@ -13,6 +13,7 @@ AWS.config.loadFromPath(AWS_CONFIG_FILE);
 
 function prepareUploadFormFields(awsConfig,policy,request){
     var s3Form = new S3Form(policy);
+    policy.setConditionByKey('success_action_redirect',request.protocol+"://"+request.headers.host);
     return s3Form.addS3CredientalsFields(s3Form.generateS3FormFields({
             "Name": "Rafal",
             "Surname": "Grzyb",
@@ -21,7 +22,6 @@ function prepareUploadFormFields(awsConfig,policy,request){
 }
 
 var task = function(request,response){
-
 	var config = helpers.readJSONFile(AWS_CONFIG_FILE);
 	//s3 upload form creation process
     var policy = new Policy(helpers.readJSONFile(POLICY_FILE)); 

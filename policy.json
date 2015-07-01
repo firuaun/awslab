@@ -2,7 +2,7 @@
 	"conditions": [ ["starts-with", "$key", "rafal.grzyb/"],
     				 {"bucket": "lab4-weeia"}, 
     				 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8080"},   
+    				 {"success_action_redirect": "${hostname}"},   
     				 ["content-length-range", 0, 3145728]
     				]   
 }
